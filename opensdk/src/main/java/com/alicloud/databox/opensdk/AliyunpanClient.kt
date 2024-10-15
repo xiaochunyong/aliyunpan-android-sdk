@@ -33,7 +33,8 @@ class AliyunpanClient private constructor(private val config: AliyunpanClientCon
         } else {
             AliyunpanDownloader(
                 this,
-                downloadFolderPath
+                downloadFolderPath,
+                config.appLevel,
             )
         }
     }
