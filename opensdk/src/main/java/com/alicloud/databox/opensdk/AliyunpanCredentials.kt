@@ -3,7 +3,7 @@ package com.alicloud.databox.opensdk
 import android.content.Context
 import org.json.JSONObject
 
-abstract class AliyunpanCredentials(val context: Context, val appId: String) :
+abstract class AliyunpanCredentials(val context: Context, val appId: String, val appSecret: String) :
     AliyunpanTokenServer {
 
     abstract fun preCheckTokenValid(): Boolean

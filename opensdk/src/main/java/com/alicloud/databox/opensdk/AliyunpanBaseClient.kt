@@ -9,7 +9,7 @@ interface AliyunpanBaseClient {
 
     fun fetchToken(activity: Activity)
 
-    fun isInstanceYunpanApp(): Boolean
+    fun isInstallYunpanApp(): Boolean
 
     fun getOkHttpInstance(): OkHttpClient
 }

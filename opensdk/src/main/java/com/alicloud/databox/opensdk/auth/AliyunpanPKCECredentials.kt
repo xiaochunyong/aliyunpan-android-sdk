@@ -3,6 +3,7 @@ package com.alicloud.databox.opensdk.auth
 import android.content.Context
 import android.util.Base64
 import com.alicloud.databox.opensdk.AliyunpanCredentials
+import com.alicloud.databox.opensdk.LLogger
 import com.alicloud.databox.opensdk.io.MessageDigestHelper
 import com.alicloud.databox.opensdk.utils.DataStoreControl
 import org.json.JSONObject
@@ -19,8 +20,9 @@ import java.security.SecureRandom
 internal class AliyunpanPKCECredentials(
     context: Context,
     appId: String,
+    appSecret: String,
     identifier: String,
-) : AliyunpanCredentials(context, appId) {
+) : AliyunpanCredentials(context, appId, appSecret) {
 
     private val dataStoreControl = DataStoreControl(context, "PKCE", identifier)
 
@@ -42,8 +44,10 @@ internal class AliyunpanPKCECredentials(
     }
 
     override fun getOAuthRequest(scope: String): Map<String, String> {
+        LLogger.log("AliyunpanPKCECredentials", "getOAuthRequest")
         return mapOf(
             "client_id" to appId,
+            "client_secret" to appSecret,
             "bundle_id" to context.packageName,
             "scope" to scope,
             "redirect_uri" to "oob",
@@ -54,9 +58,11 @@ internal class AliyunpanPKCECredentials(
     }
 
     override fun getOAuthQRCodeRequest(scopes: List<String>): JSONObject? {
+        LLogger.log("AliyunpanPKCECredentials", "getOAuthQRCodeRequest")
         return JSONObject(
             mapOf(
                 "client_id" to appId,
+                "client_secret" to appSecret,
                 "bundle_id" to context.packageName,
                 "scopes" to scopes,
                 "source" to "app",
@@ -77,9 +83,11 @@ internal class AliyunpanPKCECredentials(
     }
 
     override fun getTokenRequest(authCode: String): JSONObject {
+        LLogger.log("AliyunpanPKCECredentials", "getTokenRequest")
         return JSONObject(
             mapOf(
                 "client_id" to appId,
+                "client_secret" to appSecret,
                 "grant_type" to "authorization_code",
                 "code" to authCode,
                 "code_verifier" to getCodeVerifier(),

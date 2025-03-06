@@ -18,9 +18,10 @@ import org.json.JSONObject
 internal class AliyunpanServerCredentials(
     context: Context,
     appId: String,
+    appSecret: String,
     identifier: String,
     private val tokenServer: AliyunpanTokenServer,
-) : AliyunpanCredentials(context, appId), AliyunpanTokenServer by tokenServer {
+) : AliyunpanCredentials(context, appId, appSecret), AliyunpanTokenServer by tokenServer {
 
     private val dataStoreControl = DataStoreControl(context, "Server", identifier)
 
@@ -42,6 +43,7 @@ internal class AliyunpanServerCredentials(
     override fun getOAuthRequest(scope: String): Map<String, String> {
         return mapOf(
             "client_id" to appId,
+            "client_secret" to appSecret,
             "bundle_id" to context.packageName,
             "scope" to scope,
             "redirect_uri" to "oob",

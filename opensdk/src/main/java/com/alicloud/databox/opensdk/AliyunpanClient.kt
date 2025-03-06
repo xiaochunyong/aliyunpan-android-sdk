@@ -120,7 +120,7 @@ class AliyunpanClient private constructor(private val config: AliyunpanClientCon
             return
         }
 
-        val installApp = isInstanceYunpanApp()
+        val installApp = isInstallYunpanApp()
 
         val requestQuery = mutableMapOf("source" to if (installApp) "app" else "appLink")
 
@@ -429,7 +429,7 @@ class AliyunpanClient private constructor(private val config: AliyunpanClientCon
 
     override fun getOkHttpInstance() = okHttpInstance
 
-    override fun isInstanceYunpanApp(): Boolean {
+    override fun isInstallYunpanApp(): Boolean {
         val context = config.context
         val packageManager = context.packageManager
         return try {

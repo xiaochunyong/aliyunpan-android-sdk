@@ -83,6 +83,7 @@ class AliyunpanClientConfig private constructor(
 
         private val context: Context
         private val appId: String
+        private val appSecret: String
 
         /**
          * Identifier
@@ -110,9 +111,10 @@ class AliyunpanClientConfig private constructor(
 
         private var autoLogin = false
 
-        constructor(context: Context, appId: String) {
+        constructor(context: Context, appId: String, appSecret: String) {
             this.context = context.applicationContext
             this.appId = appId
+            this.appSecret = appSecret
         }
 
         /**
@@ -157,9 +159,9 @@ class AliyunpanClientConfig private constructor(
 
             val aliyunpanTokenServer = tokenServer
             val credentials = if (aliyunpanTokenServer != null) {
-                AliyunpanServerCredentials(context, appId, identifier, aliyunpanTokenServer)
+                AliyunpanServerCredentials(context, appId, appSecret, identifier, aliyunpanTokenServer)
             } else {
-                AliyunpanPKCECredentials(context, appId, identifier)
+                AliyunpanPKCECredentials(context, appId, appSecret, identifier)
             }
 
             return AliyunpanClientConfig(
